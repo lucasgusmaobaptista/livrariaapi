@@ -2,9 +2,6 @@ package me.lucasgusmao.livraria_api.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +18,7 @@ public class Autor {
     private UUID id;
 
     @Column(name = "nome", length = 100, nullable = false)
-    private String name;
+    private String nome;
 
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
@@ -29,6 +26,7 @@ public class Autor {
     @Column(name = "nacionalidade", length = 50, nullable = false)
     private String nacionalidade;
 
-    @OneToMany(mappedBy = "autor")
+//    @OneToMany(mappedBy = "autor")
+    @Transient
     private List<Livro> livros;
 }
