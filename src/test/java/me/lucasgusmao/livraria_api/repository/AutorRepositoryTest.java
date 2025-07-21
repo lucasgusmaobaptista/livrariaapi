@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -41,6 +42,26 @@ public class AutorRepositoryTest {
             autorEncontrado.setNome("Autor Atualizado");
 
             autorRepository.save(autorEncontrado);
+        }
+    }
+
+    @Test
+    public void listarTeste() {
+        List<Autor> lista =  autorRepository.findAll();
+        lista.forEach(System.out::println);
+    }
+
+    @Test
+    public void deletarTeste() {
+        var id = UUID.fromString("641abd05-ab8b-4409-9746-a6c6a39ff00e");
+
+        Optional<Autor> autor = autorRepository.findById(id);
+
+        if(autor.isPresent()) {
+            autorRepository.delete(autor.get());
+            System.out.println("Autor deletado com sucesso.");
+        } else {
+            System.out.println("Autor não encontrado.");
         }
     }
 }
