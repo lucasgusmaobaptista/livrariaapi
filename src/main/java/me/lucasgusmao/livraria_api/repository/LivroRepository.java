@@ -3,6 +3,7 @@ package me.lucasgusmao.livraria_api.repository;
 import me.lucasgusmao.livraria_api.model.Autor;
 import me.lucasgusmao.livraria_api.model.Livro;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,4 +13,10 @@ import java.util.UUID;
 public interface LivroRepository extends JpaRepository<Livro, UUID> {
 
     List<Livro> findByAutor(Autor autor);
+
+    @Query("SELECT a FROM Livro l JOIN l.autor a ")
+    List<Autor> listarAutoresDosLivros();
+
+    @Query("SELECT DISTINCT l.titulo FROM Livro l")
+    List<String> listarTitulosDosLivros();
 }
