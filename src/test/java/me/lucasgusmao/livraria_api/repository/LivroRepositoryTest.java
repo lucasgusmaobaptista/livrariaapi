@@ -29,7 +29,7 @@ class LivroRepositoryTest {
         livro.setDataPublicacao(LocalDate.of(2020, 1, 1));
         livro.setPreco(BigDecimal.valueOf(100));
 
-        Autor autor = autorRepository.findById(UUID.fromString("6562724b-33ec-4e8c-aa3e-b8ff040e043c"))
+        Autor autor = autorRepository.findById(UUID.fromString("9689d186-597d-4619-929b-7c2b19c3c2eb"))
                         .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
 
         livro.setAutor(autor);
