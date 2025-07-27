@@ -6,6 +6,8 @@ import me.lucasgusmao.livraria_api.model.Autor;
 import me.lucasgusmao.livraria_api.repository.AutorRepository;
 import me.lucasgusmao.livraria_api.repository.LivroRepository;
 import me.lucasgusmao.livraria_api.validator.AutorValidator;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,6 +56,21 @@ public class AutorService {
         } else {
             return repository.findAll();
         }
+    }
+
+    public List<Autor> pesquisaByExample(String nome, String nacionalidade) {
+        var autor = new Autor();
+        autor.setNome(nome);
+        autor.setNacionalidade(nacionalidade);
+
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withIgnoreNullValues()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        Example<Autor> autorExample = Example.of(autor, matcher);
+
+        return repository.findAll(autorExample);
     }
 
     public boolean possuiLivro(Autor autor) {

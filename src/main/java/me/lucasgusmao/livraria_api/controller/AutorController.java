@@ -1,5 +1,6 @@
 package me.lucasgusmao.livraria_api.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.lucasgusmao.livraria_api.controller.dto.AutorDTO;
 import me.lucasgusmao.livraria_api.controller.dto.ErroResposta;
@@ -26,7 +27,7 @@ public class AutorController {
     private final AutorService autorService;
 
     @PostMapping
-    public ResponseEntity<Object> salvarAutor(@RequestBody AutorDTO autor) {
+    public ResponseEntity<Object> salvarAutor(@RequestBody @Valid AutorDTO autor) {
         try {
             Autor autorEntidade = autor.mapearParaAutor();
             autorService.salvar(autorEntidade);
@@ -80,7 +81,7 @@ public class AutorController {
     public ResponseEntity<List<AutorDTO>> pesquisar(
             @RequestParam(value = "nome", required = false) String nome,
             @RequestParam(value = "nacionalidade", required = false) String nacionalidade) {
-        List<Autor> lista = autorService.pesquisa(nome, nacionalidade);
+        List<Autor> lista = autorService.pesquisaByExample(nome, nacionalidade);
         List<AutorDTO> listaDTO = lista.stream()
                 .map(autor -> new AutorDTO(
                     autor.getId(),
@@ -95,7 +96,7 @@ public class AutorController {
     @PutMapping("{id}")
     public ResponseEntity<Object> atualizar(
             @PathVariable String id,
-            @RequestBody AutorDTO dto
+            @RequestBody @Valid AutorDTO dto
     ) {
         try {
             UUID idAutor = UUID.fromString(id);
