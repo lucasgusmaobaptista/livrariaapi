@@ -1,5 +1,6 @@
 package me.lucasgusmao.livraria_api.controller;
 
+import lombok.RequiredArgsConstructor;
 import me.lucasgusmao.livraria_api.controller.dto.AutorDTO;
 import me.lucasgusmao.livraria_api.controller.dto.ErroResposta;
 import me.lucasgusmao.livraria_api.exceptions.OperacaoNaoPermitidaException;
@@ -19,13 +20,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/autores")
+@RequiredArgsConstructor
 public class AutorController {
 
     private final AutorService autorService;
-
-    public AutorController(AutorService autorService) {
-        this.autorService = autorService;
-    }
 
     @PostMapping
     public ResponseEntity<Object> salvarAutor(@RequestBody AutorDTO autor) {
