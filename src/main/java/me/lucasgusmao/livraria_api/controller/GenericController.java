@@ -8,7 +8,9 @@ import java.util.UUID;
 
 public interface GenericController {
 
-    default URI gerarHeaderLocation(UUID id) {
+    default
+
+    URI gerarHeaderLocation(UUID id) {
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
