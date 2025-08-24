@@ -3,8 +3,10 @@ package me.lucasgusmao.livraria_api.service;
 import lombok.RequiredArgsConstructor;
 import me.lucasgusmao.livraria_api.exceptions.OperacaoNaoPermitidaException;
 import me.lucasgusmao.livraria_api.model.Autor;
+import me.lucasgusmao.livraria_api.model.Usuario;
 import me.lucasgusmao.livraria_api.repository.AutorRepository;
 import me.lucasgusmao.livraria_api.repository.LivroRepository;
+import me.lucasgusmao.livraria_api.security.SecurityService;
 import me.lucasgusmao.livraria_api.validator.AutorValidator;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -21,9 +23,12 @@ public class AutorService {
     private final AutorRepository repository;
     private final AutorValidator autorValidator;
     private final LivroRepository livroRepository;
+    private final SecurityService securityService;
 
     public Autor salvar(Autor autor) {
         autorValidator.validar(autor);
+        Usuario usuario = securityService.obterUSuarioLogado();
+        autor.setUsuario(usuario);
         return repository.save(autor);
     }
 
@@ -32,6 +37,8 @@ public class AutorService {
             throw new IllegalArgumentException("É necessário informar um ID válido para atualização.");
         }
         autorValidator.validar(autor);
+        Usuario usuario = securityService.obterUSuarioLogado();
+        autor.setUsuario(usuario);
         repository.save(autor);
     }
 

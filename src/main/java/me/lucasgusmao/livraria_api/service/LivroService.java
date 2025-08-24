@@ -3,8 +3,10 @@ package me.lucasgusmao.livraria_api.service;
 import lombok.RequiredArgsConstructor;
 import me.lucasgusmao.livraria_api.model.GeneroLivro;
 import me.lucasgusmao.livraria_api.model.Livro;
+import me.lucasgusmao.livraria_api.model.Usuario;
 import me.lucasgusmao.livraria_api.repository.LivroRepository;
 import me.lucasgusmao.livraria_api.repository.specs.LivroSpecs;
+import me.lucasgusmao.livraria_api.security.SecurityService;
 import me.lucasgusmao.livraria_api.validator.LivroValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,9 +25,12 @@ public class LivroService {
 
     private final LivroRepository repository;
     private final LivroValidator validator;
+    private final SecurityService securityService;
 
     public Livro salvar(Livro livro) {
         validator.validar(livro);
+        Usuario usuario = securityService.obterUSuarioLogado();
+        livro.setUsuario(usuario);
         return repository.save(livro);
     }
 
@@ -72,6 +77,8 @@ public class LivroService {
         }
 
         validator.validar(livro);
+        Usuario usuario = securityService.obterUSuarioLogado();
+        livro.setUsuario(usuario);
         repository.save(livro);
     }
 }
