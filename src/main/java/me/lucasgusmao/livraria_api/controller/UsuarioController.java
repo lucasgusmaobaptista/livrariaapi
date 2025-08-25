@@ -1,4 +1,5 @@
 package me.lucasgusmao.livraria_api.controller;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.lucasgusmao.livraria_api.controller.dto.UsuarioDTO;
 import me.lucasgusmao.livraria_api.controller.mappers.UsuarioMapper;
@@ -19,7 +20,7 @@ public class UsuarioController {
     private final UsuarioMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Void> salvar(@RequestBody UsuarioDTO dto) {
+    public ResponseEntity<Void> salvar(@RequestBody @Valid UsuarioDTO dto) {
         var usuario = mapper.toEntity(dto);
         /* if (usuario.getPassword() == null || usuario.getPassword().isBlank()) {
             throw new IllegalArgumentException("A senha é obrigatória.");
