@@ -19,7 +19,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class LoginSocialSucessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+public class LoginSocialSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     private static final String DEFAULT_PASSWORD = "senha_padrao_123";
 

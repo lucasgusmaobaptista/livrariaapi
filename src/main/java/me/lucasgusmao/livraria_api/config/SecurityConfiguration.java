@@ -1,7 +1,7 @@
 package me.lucasgusmao.livraria_api.config;
 
 import me.lucasgusmao.livraria_api.security.CustomUserDetailsService;
-import me.lucasgusmao.livraria_api.security.LoginSocialSucessHandler;
+import me.lucasgusmao.livraria_api.security.LoginSocialSuccessHandler;
 import me.lucasgusmao.livraria_api.service.UsuarioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, LoginSocialSucessHandler loginSocialSucessHandler) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, LoginSocialSuccessHandler loginSocialSucessHandler) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
