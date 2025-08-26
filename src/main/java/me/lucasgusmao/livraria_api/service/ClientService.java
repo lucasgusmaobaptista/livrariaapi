@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ClientService {
 
-    private final ClientRepository clientRepository;
+    private final ClientRepository repository;
 
     public Client salvar(Client client) {
-        return clientRepository.save(client);
+        return repository.save(client);
     }
 
     public Client obterPorClientId(String clientId) {
-        return clientRepository.findByClientId(clientId);
+        return repository.findByClientId(clientId);
     }
 
 
