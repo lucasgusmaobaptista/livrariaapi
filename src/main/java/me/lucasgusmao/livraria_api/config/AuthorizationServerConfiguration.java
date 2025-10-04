@@ -49,7 +49,7 @@ public class AuthorizationServerConfiguration {
 
     @Bean
     public TokenSettings tokenSettings() {
-        return tokenSettings().builder()
+        return TokenSettings.builder()
                 .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
                 .accessTokenTimeToLive(Duration.ofMinutes(60))
                 .build();
@@ -57,7 +57,7 @@ public class AuthorizationServerConfiguration {
 
     @Bean
     public ClientSettings clientSettings() {
-        return clientSettings().builder()
+        return ClientSettings.builder()
                 .requireAuthorizationConsent(false)
                 .build();
     }
